@@ -20,6 +20,6 @@ public class DataTwo extends JAXBProcessor<DtypeTwo> {
 
     @Override
     public void doWork(DtypeTwo element) {
-//        System.out.println(element.getP1());
+         System.out.println(element.getDtypeTwoTypeFee().getValue());
     }
 }

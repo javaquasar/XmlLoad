@@ -17,9 +17,11 @@
     </xs:complexType>
     <xs:complexType name="dataType">
         <xs:sequence>
-            <xs:element type="dtype_oneType" name="dtype_one"/>
-            <xs:element type="dtype_twoType" name="dtype_two"/>
-            <xs:element type="WSType" name="WS"/>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element type="dtype_oneType" name="dtype_one"/>
+                <xs:element type="dtype_twoType" name="dtype_two"/>
+                <xs:element type="WSType" name="WS"/>
+            </xs:choice>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="WSType">
@@ -34,6 +36,12 @@
             <xs:element type="xs:string" name="p3"/>
             <xs:element type="xs:string" name="p4"/>
             <xs:element type="xs:string" name="p5"/>
+            <xs:element name="dtype_twoType_Fee">
+                <xs:complexType>
+                    <xs:attribute name="value" type="xs:string" use="required"/>
+                    <xs:attribute name="value2" type="xs:string" use="required"/>
+                </xs:complexType>
+            </xs:element>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="dtype_threeType">

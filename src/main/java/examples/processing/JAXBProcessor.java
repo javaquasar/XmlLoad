@@ -14,8 +14,10 @@ abstract public class JAXBProcessor<T> implements TagProcessor {
     private String tagPath;
     private JAXBContext jaxbContext;
     private Unmarshaller unmarshaller;
+    private Class<T> clazz;
 
     public JAXBProcessor(Class<T> clazz, String tagPath) throws JAXBException {
+        this.clazz = clazz;
         this.tagPath = tagPath;
         jaxbContext = JAXBContext.newInstance(clazz);
         unmarshaller = jaxbContext.createUnmarshaller();
@@ -36,7 +38,8 @@ abstract public class JAXBProcessor<T> implements TagProcessor {
     @SuppressWarnings("unchecked")
     public void process(XMLStreamReader xmlStreamReader)  {
         try {
-            T element = (T) unmarshaller.unmarshal(xmlStreamReader);
+            Object o = unmarshaller.unmarshal(xmlStreamReader, clazz);
+            T element = (T) o;
             doWork(element);
         } catch (JAXBException e) {
             e.printStackTrace();

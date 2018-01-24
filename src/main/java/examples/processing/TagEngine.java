@@ -11,8 +11,7 @@ import java.io.InputStream;
 import java.util.*;
 
 public class TagEngine {
-    private Map<List<String>, TagProcessor> processorMap = new HashMap<List<String>, TagProcessor>();
-
+    private final Map<List<String>, TagProcessor> processorMap = new HashMap<List<String>, TagProcessor>();
 
     public TagEngine add(TagProcessor processor) {
         processorMap.put(new ArrayList<String>(
@@ -34,7 +33,7 @@ public class TagEngine {
         while (streamReader.hasNext()) {
             int eventType = streamReader.next();
             if(eventType == XMLStreamConstants.START_ELEMENT) {
-                System.out.println(streamReader.getName().toString());
+                //System.out.println(streamReader.getName().toString());
                 tagStack.push(streamReader.getName().toString());
                 TagProcessor t = processorMap.get(tagStack);
 

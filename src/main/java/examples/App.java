@@ -5,50 +5,27 @@ import examples.bench.XMLBenchmarkInputStream;
 import examples.data.DataOne;
 import examples.data.DataThree;
 import examples.data.DataThreeXSLT;
+import examples.data.DataTwo;
+import examples.data.DataTwoTypeFee;
 import examples.data.DataWs;
 import examples.processing.TagEngine;
 
 
 public class App {
-
-    public static final String XML_TEST_HEADER = "<data>";
-    public static final String XML_TEST_FOOTER = "</data>";
-    public static final String XML_TEST_BODY = "    <dtype_one>\n" +
-            "        <p1>p1_data_1</p1>\n" +
-            "        <p2>p1_data_1</p2>\n" +
-            "        <p3>p1_data_1</p3>\n" +
-            "        <p4>p1_data_1</p4>\n" +
-            "        <p5>p1_data_1</p5>\n" +
-            "    </dtype_one>\n" +
-            "    <dtype_two>\n" +
-            "        <p1>p1_data_2</p1>\n" +
-            "        <p2>p1_data_2</p2>\n" +
-            "        <p3>p1_data_2</p3>\n" +
-            "        <p4>p1_data_2</p4>\n" +
-            "        <p5>p1_data_2</p5>\n" +
-            "    </dtype_two>\n" +
-            "    <WS>\n" +
-            "        <dtype_three>\n" +
-            "            <p1>p1_data_3</p1>\n" +
-            "            <p2>p1_data_3</p2>\n" +
-            "            <p3>p1_data_3</p3>\n" +
-            "            <p4>p1_data_3</p4>\n" +
-            "            <p5>p1_data_3</p5>\n" +
-            "        </dtype_three>\n" +
-            "    </WS>";
-
     private static final String XML_SCHEMA_FILE_NAME = "data.xsd";
 
     private static void test_noverify(int repeatCount) throws Throwable {
         TagEngine tagEngine = new TagEngine();
         DataOne dataOne = new DataOne();
         DataWs dataWs = new DataWs();
+        DataTwo dataTwo = new DataTwo();
         DataThree dataThree = new DataThree();
+        DataTwoTypeFee dataTwoTypeFee = new DataTwoTypeFee();
         XMLBenchmarkInputStream xstream =
                 new XMLBenchmarkInputStream(repeatCount, XML_TEST_HEADER, XML_TEST_BODY,
                         XML_TEST_FOOTER);
 
-        tagEngine.add(dataWs);
+        tagEngine.add(dataTwoTypeFee);
         tagEngine.add(dataOne);
         tagEngine.add(dataThree);
 
@@ -98,20 +75,56 @@ public class App {
     public static void main(String[] args) throws Throwable {
         Runtime runtime = Runtime.getRuntime();
         System.out.println("JAXB unmarshall without schema validation");
-        //test_noverify(500000);
+        test_noverify(500000);
         System.out.println("Used Memory:"
                 + (runtime.totalMemory() - runtime.freeMemory()) / 1024 / 1024 + "MB");
         System.gc();
         System.out.println("JAXB unmarshall with schema validation");
-        //test_verify(500000);
+        test_verify(500000);
         System.out.println("Used Memory:"
                 + (runtime.totalMemory() - runtime.freeMemory()) / 1024 / 1024 + "MB");
 
         System.gc();
         System.out.println("XSLT processing");
-        //test_XSLT(500000);
+        test_XSLT(500000);
         System.out.println("Used Memory:"
                 + (runtime.totalMemory() - runtime.freeMemory()) / 1024 / 1024 + "MB");
 
     }
+    
+    public static final String XML_TEST_HEADER = "<data>";
+    public static final String XML_TEST_FOOTER = "</data>";
+    public static final String XML_TEST_BODY = 
+"<dtype_two>\n" +
+"        <dtype_twoType_Fee value=\"123\" value2=\"456\"/>\n" +
+"        <p1>p1_data_2</p1>\n" +
+"        <p2>p1_data_2</p2>\n" +
+"        <p3>p1_data_2</p3>\n" +
+"        <p4>p1_data_2</p4>\n" +
+"        <p5>p1_data_2</p5>\n" +
+"    </dtype_two>\n" +
+"    <dtype_one>\n" +
+"        <p1>p1_data_1</p1>\n" +
+"        <p2>p1_data_1</p2>\n" +
+"        <p3>p1_data_1</p3>\n" +
+"        <p4>p1_data_1</p4>\n" +
+"        <p5>p1_data_1</p5>\n" +
+"    </dtype_one>\n" +
+"    <dtype_two>\n" +
+"        <dtype_twoType_Fee value=\"789\" value2=\"456\"/>\n" +
+"        <p1>p1_data_2</p1>\n" +
+"        <p2>p1_data_2</p2>\n" +
+"        <p3>p1_data_2</p3>\n" +
+"        <p4>p1_data_2</p4>\n" +
+"        <p5>p1_data_2</p5>\n" +
+"    </dtype_two>\n" +
+"    <WS>\n" +
+"        <dtype_three>\n" +
+"            <p1>p1_data_3</p1>\n" +
+"            <p2>p1_data_3</p2>\n" +
+"            <p3>p1_data_3</p3>\n" +
+"            <p4>p1_data_3</p4>\n" +
+"            <p5>p1_data_3</p5>\n" +
+"        </dtype_three>\n" +
+"    </WS>";
 }

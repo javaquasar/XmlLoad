@@ -1,4 +1,12 @@
 <data>
+    <dtype_two>
+        <dtype_twoType_Fee value="123" value2="456"/>
+        <p1>p1_data_2</p1>
+        <p2>p1_data_2</p2>
+        <p3>p1_data_2</p3>
+        <p4>p1_data_2</p4>
+        <p5>p1_data_2</p5>
+    </dtype_two>
     <dtype_one>
         <p1>p1_data_1</p1>
         <p2>p1_data_1</p2>
@@ -7,6 +15,7 @@
         <p5>p1_data_1</p5>
     </dtype_one>
     <dtype_two>
+        <dtype_twoType_Fee value="789" value2="456"/>
         <p1>p1_data_2</p1>
         <p2>p1_data_2</p2>
         <p3>p1_data_2</p3>
