@@ -5,12 +5,9 @@ import examples.bench.XMLBenchmarkInputStream;
 import examples.data.DataThreeXSLT;
 import examples.data.DataTransactionsCardAuthorisation;
 import examples.processing.TagEngine;
-import examples.utils.GpsResources;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import javax.xml.transform.stream.StreamSource;
-
 
 public class AppGps {
 
@@ -19,8 +16,8 @@ public class AppGps {
     private static void test_noverify() throws Throwable {
         TagEngine tagEngine = new TagEngine();
 
-        DataTransactionsCardAuthorisation dta = new DataTransactionsCardAuthorisation(XML_SCHEMA_FILE_NAME);
-        File initialFile = new File("./src/main/resources/xml/GPS.XML");
+        DataTransactionsCardAuthorisation dta = new DataTransactionsCardAuthorisation();
+        File initialFile = new File("./src/main/resources/xml/GPS_BIG.XML");
         System.out.println(initialFile.exists());
         InputStream xstream = new FileInputStream(initialFile);
 
@@ -36,7 +33,7 @@ public class AppGps {
     private static void test_noverify(int repeatCount) throws Throwable {
         TagEngine tagEngine = new TagEngine();
 
-        DataTransactionsCardAuthorisation dta = new DataTransactionsCardAuthorisation(XML_SCHEMA_FILE_NAME);
+        DataTransactionsCardAuthorisation dta = new DataTransactionsCardAuthorisation();
         XMLBenchmarkInputStream xstream = 
                 new XMLBenchmarkInputStream(
                         repeatCount, 
