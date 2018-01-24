@@ -5,16 +5,35 @@ import examples.bench.XMLBenchmarkInputStream;
 import examples.data.DataThreeXSLT;
 import examples.data.DataTransactionsCardAuthorisation;
 import examples.processing.TagEngine;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 
 public class AppGps {
 
     private static final String XML_SCHEMA_FILE_NAME = "GPS.xsd";
 
+    private static void test_noverify() throws Throwable {
+        TagEngine tagEngine = new TagEngine();
+
+        DataTransactionsCardAuthorisation dta = new DataTransactionsCardAuthorisation(XML_SCHEMA_FILE_NAME);
+        File initialFile = new File("./src/main/resources/xml/GPS.xml");
+        InputStream xstream = new FileInputStream(initialFile);
+
+        tagEngine.add(dta);
+
+        long millis = System.currentTimeMillis();
+        tagEngine.process(xstream);
+        long endMillis = System.currentTimeMillis();
+        System.out.println("Runtime: " + (endMillis - millis) + "ms, " +
+                initialFile.length() + " bytes processed");
+    }
+
     private static void test_noverify(int repeatCount) throws Throwable {
         TagEngine tagEngine = new TagEngine();
 
-        DataTransactionsCardAuthorisation dta = new DataTransactionsCardAuthorisation();
+        DataTransactionsCardAuthorisation dta = new DataTransactionsCardAuthorisation(XML_SCHEMA_FILE_NAME);
         XMLBenchmarkInputStream xstream = 
                 new XMLBenchmarkInputStream(
                         repeatCount, 
@@ -70,7 +89,7 @@ public class AppGps {
     public static void main(String[] args) throws Throwable {
         Runtime runtime = Runtime.getRuntime();
         System.out.println("JAXB unmarshall without schema validation");
-        test_noverify(500000);
+        test_noverify();
         System.out.println("Used Memory:"
                 + (runtime.totalMemory() - runtime.freeMemory()) / 1024 / 1024 + "MB");
         System.gc();
