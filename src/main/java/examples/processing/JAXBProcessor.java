@@ -4,6 +4,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLStreamReader;
@@ -38,11 +39,9 @@ abstract public class JAXBProcessor<T> implements TagProcessor {
     @SuppressWarnings("unchecked")
     public void process(XMLStreamReader xmlStreamReader)  {
         try {
-            Object o = unmarshaller.unmarshal(xmlStreamReader, clazz);
-            T element = (T) o;
-            doWork(element);
+            JAXBElement<T> root = unmarshaller.unmarshal(xmlStreamReader, clazz);
+            doWork(root.getValue());
         } catch (JAXBException e) {
-            e.printStackTrace();
             throw new RuntimeException(e);
         }
 

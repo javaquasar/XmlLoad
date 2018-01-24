@@ -14,7 +14,7 @@ public class AppGps {
     private static void test_noverify(int repeatCount) throws Throwable {
         TagEngine tagEngine = new TagEngine();
 
-        DataTransactionsCardAuthorisation dta = new DataTransactionsCardAuthorisation(XML_SCHEMA_FILE_NAME);
+        DataTransactionsCardAuthorisation dta = new DataTransactionsCardAuthorisation();
         XMLBenchmarkInputStream xstream = 
                 new XMLBenchmarkInputStream(
                         repeatCount, 
