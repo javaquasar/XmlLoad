@@ -27,7 +27,7 @@ public class DataTwoTypeFee extends JAXBProcessor<DtypeTwo.DtypeTwoTypeFee> {
 
     @Override
     public void doWork(DtypeTwo.DtypeTwoTypeFee element) {
-//        System.out.println("DtypeTwo.DtypeTwoTypeFee Value = " + element.getValue());
-//        System.out.println("DtypeTwo.DtypeTwoTypeFee Value2 = " + element.getValue2());
+        System.out.println("DtypeTwo.DtypeTwoTypeFee Value = " + element.getValue());
+        System.out.println("DtypeTwo.DtypeTwoTypeFee Value2 = " + element.getValue2());
     }
 }

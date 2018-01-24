@@ -5,15 +5,45 @@ import examples.bench.XMLBenchmarkInputStream;
 import examples.data.DataOne;
 import examples.data.DataThree;
 import examples.data.DataThreeXSLT;
+import examples.data.DataTransactionsCardAuthorisation;
 import examples.data.DataTwo;
 import examples.data.DataTwoTypeFee;
 import examples.data.DataWs;
 import examples.processing.TagEngine;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 
 public class App {
     private static final String XML_SCHEMA_FILE_NAME = "data.xsd";
 
+    private static void test_noverify() throws Throwable {
+        TagEngine tagEngine = new TagEngine();
+        DataOne dataOne = new DataOne();
+        DataWs dataWs = new DataWs();
+        DataTwo dataTwo = new DataTwo();
+        DataThree dataThree = new DataThree();
+        DataTwoTypeFee dataTwoTypeFee = new DataTwoTypeFee();
+
+
+        DataTransactionsCardAuthorisation dta = new DataTransactionsCardAuthorisation(XML_SCHEMA_FILE_NAME);
+        File initialFile = new File("./src/main/resources/xml/data.xml");
+        System.out.println(initialFile.exists());
+        InputStream xstream = new FileInputStream(initialFile);
+        
+        tagEngine.add(dataTwoTypeFee);
+        tagEngine.add(dataOne);
+        tagEngine.add(dataThree);
+
+        long millis = System.currentTimeMillis();
+        tagEngine.process(xstream);
+        long endMillis = System.currentTimeMillis();
+        System.out.println("Runtime: " + (endMillis - millis) + "ms, " +
+               initialFile.length() + " bytes processed");
+    }
+
+    
     private static void test_noverify(int repeatCount) throws Throwable {
         TagEngine tagEngine = new TagEngine();
         DataOne dataOne = new DataOne();
@@ -75,7 +105,7 @@ public class App {
     public static void main(String[] args) throws Throwable {
         Runtime runtime = Runtime.getRuntime();
         System.out.println("JAXB unmarshall without schema validation");
-        test_noverify(500000);
+        test_noverify();
         System.out.println("Used Memory:"
                 + (runtime.totalMemory() - runtime.freeMemory()) / 1024 / 1024 + "MB");
         System.gc();
