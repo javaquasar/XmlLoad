@@ -5,8 +5,12 @@ import examples.bench.XMLBenchmarkInputStream;
 import examples.data.DataThreeXSLT;
 import examples.data.DataTransactionsCardAuthorisation;
 import examples.processing.TagEngine;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class AppGps {
@@ -17,7 +21,7 @@ public class AppGps {
         TagEngine tagEngine = new TagEngine();
 
         DataTransactionsCardAuthorisation dta = new DataTransactionsCardAuthorisation();
-        File initialFile = new File("./src/main/resources/xml/GPS_BIG.XML");
+        File initialFile = new File("./src/main/resources/xml/GPS_BIG_2.XML");
         System.out.println(initialFile.exists());
         InputStream xstream = new FileInputStream(initialFile);
 
@@ -87,6 +91,7 @@ public class AppGps {
 
 
     public static void main(String[] args) throws Throwable {
+        //generateHugeFile();
         Runtime runtime = Runtime.getRuntime();
         System.out.println("JAXB unmarshall without schema validation");
         test_noverify();
@@ -104,6 +109,32 @@ public class AppGps {
         System.out.println("Used Memory:"
                 + (runtime.totalMemory() - runtime.freeMemory()) / 1024 / 1024 + "MB");
 
+    }
+    
+    private static void generateHugeFile() throws IOException {
+        
+        FileReader fr = new FileReader("./src/main/resources/xml/GPS_BIG_PART.XML");
+        BufferedReader bfr = new BufferedReader(fr);
+        FileWriter fw = new FileWriter("./src/main/resources/xml/GPS_BIG_2.XML");
+        //BufferedFileWriter bfw = new BufferedFileWriter(fw);
+        fw.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+        fw.write("\n");
+        fw.write(XML_TEST_HEADER);
+        fw.write("\n");
+        StringBuilder sb = new StringBuilder();
+        String sCurrentLine;
+        while ((sCurrentLine = bfr.readLine()) != null) {
+            System.out.println(sCurrentLine);
+            sb.append(sCurrentLine);
+            sb.append("\n");
+        }
+            
+        for(int i = 0; i < 1000; i++) {
+            fw.write(sb.toString());
+        }
+        fw.write(XML_TEST_FOOTER);
+        fr.close();
+        fw.close();
     }
     
     public static final String XML_TEST_HEADER = "<Transactions xmlns:xsi=\"http://www.w3.org/2001/XMLSchema\">";
@@ -137,4 +168,5 @@ public class AppGps {
         "    <OrigTxnAmt value=\"2.70\" currency=\"985\" />\n" +
         "    <ReversalReason />\n" +
         "  </CardAuthorisation>";
+    
 }
