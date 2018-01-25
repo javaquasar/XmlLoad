@@ -1,0 +1,33 @@
+<!--<jxb:bindings
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" 
+    jxb:extensionBindingPrefixes="xjc"
+    version="2.1">
+    <jxb:globalBindings localScoping="toplevel"/>
+    <jxb:bindings schemaLocation="./GPS.xsd" node="/xs:schema">
+        <jxb:globalBindings>
+            <xjc:superClass name="com.syh.Shape"/>
+            <xjc:serializable uid="12343"/>
+        </jxb:globalBindings>
+        <jaxb:bindings node="//xs:simpleType[@name='CardAuthorisation']">
+            <jaxb:class name="CardAuthorisation"/>
+        </jaxb:bindings>
+    </jxb:bindings>
+</jxb:bindings>
+<?xml version="1.0" encoding="UTF-8"?>-->
+<!--    xs:schemaLocation="http://java.sun.com/xml/ns/jaxb http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd"-->
+<jaxb:bindings
+    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    
+    jaxb:version="2.1">
+    <jaxb:globalBindings localScoping="toplevel">
+    </jaxb:globalBindings>
+    <jaxb:bindings schemaLocation="../src/main/resources/schemas/GPS.xsd">
+<!--        <jaxb:schemaBindings>
+            <jaxb:package name="test.gps" />
+        </jaxb:schemaBindings>-->
+
+    </jaxb:bindings>
+</jaxb:bindings>

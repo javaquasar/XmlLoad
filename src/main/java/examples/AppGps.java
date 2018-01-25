@@ -54,7 +54,7 @@ public class AppGps {
     private static void test_verify(int repeatCount) throws Throwable {
         TagEngine tagEngine = new TagEngine();
         
-        DataTransactionsCardAuthorisation dta = new DataTransactionsCardAuthorisation();
+        DataTransactionsCardAuthorisation dta = new DataTransactionsCardAuthorisation(XML_SCHEMA_FILE_NAME);
         XMLBenchmarkInputStream xstream =
                 new XMLBenchmarkInputStream(repeatCount, XML_TEST_HEADER, XML_TEST_BODY,
                         XML_TEST_FOOTER);
@@ -94,7 +94,7 @@ public class AppGps {
                 + (runtime.totalMemory() - runtime.freeMemory()) / 1024 / 1024 + "MB");
         System.gc();
         System.out.println("JAXB unmarshall with schema validation");
-        //test_verify(500000);
+        test_verify(1);
         System.out.println("Used Memory:"
                 + (runtime.totalMemory() - runtime.freeMemory()) / 1024 / 1024 + "MB");
 
@@ -106,10 +106,10 @@ public class AppGps {
 
     }
     
-    public static final String XML_TEST_HEADER = "<Transactions xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">";
+    public static final String XML_TEST_HEADER = "<Transactions xmlns:xsi=\"http://www.w3.org/2001/XMLSchema\">";
     public static final String XML_TEST_FOOTER = "</Transactions>";
     public static final String XML_TEST_BODY = 
-        "<CardAuthorisation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n" +
+        "<CardAuthorisation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema\">\n" +
         "    <RecType>ADV</RecType>\n" +
         "    <AuthId>2439748700</AuthId>\n" +
         "    <AuthTxnID>222203964</AuthTxnID>\n" +
